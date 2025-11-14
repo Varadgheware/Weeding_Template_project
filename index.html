@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wedding Template — Editor</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- SwiperJS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="toolbar">
+    <div class="toolbar-left">
+      <button id="addText">Add Text</button>
+      <button id="addImage">Add Background Image</button>
+    </div>
+
+    <div class="toolbar-right">
+      <button id="saveState">Save</button>
+      <button id="exportJson">Export JSON</button>
+      <input id="importJson" type="file" accept="application/json" style="display:none" />
+      <button id="importBtn">Import JSON</button>
+    </div>
+  </header>
+
+  <main class="app">
+    <section class="viewer">
+      <div class="frame">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper" id="swiper-wrapper">
+            <!-- Slides added by JS -->
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel" id="panel">
+      <div class="panel-header">
+        <button class="back-btn" id="backBtn" style="display: none;">←</button>
+        <h3 id="panelTitle">Select Text to Edit</h3>
+      </div>
+
+      <div class="panel-content" id="panelContent" style="display: none;">
+        <!-- Language Dropdown -->
+        <div class="prop-group">
+          <label>Language</label>
+          <select id="language">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+          </select>
+        </div>
+
+        <!-- Text Area -->
+        <div class="prop-group">
+          <label>Text</label>
+          <textarea id="textInput" rows="4" placeholder="Enter your text here..."></textarea>
+        </div>
+
+        <!-- Font Family & Style -->
+        <div class="prop-group">
+          <label>Font Family</label>
+          <select id="fontFamily">
+            <option value="'Charm', cursive">Charm</option>
+            <option value="'Dancing Script', cursive">Dancing Script</option>
+            <option value="'Great Vibes', cursive">Great Vibes</option>
+            <option value="'Playfair Display', serif">Playfair Display</option>
+            <option value="'Georgia', serif">Georgia</option>
+            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+            <option value="'Arial', sans-serif">Arial</option>
+            <option value="'Verdana', sans-serif">Verdana</option>
+            <option value="serif">Serif</option>
+          </select>
+        </div>
+
+        <div class="prop-group">
+          <label>Font Style</label>
+          <select id="fontWeight">
+            <option value="400">Regular</option>
+            <option value="500">Medium</option>
+            <option value="600">Semi Bold</option>
+            <option value="700">Bold</option>
+          </select>
+        </div>
+
+        <!-- Font Size with Arrows -->
+        <div class="prop-group">
+          <label>Font Size</label>
+          <div class="font-size-control">
+            <button class="size-btn" id="decreaseFontSize">−</button>
+            <input id="fontSize" type="number" min="8" max="200" value="24" />
+            <button class="size-btn" id="increaseFontSize">+</button>
+          </div>
+        </div>
+
+        <!-- Color -->
+        <div class="prop-group">
+          <label>Color</label>
+          <div class="color-control">
+            <input id="fontColor" type="color" value="#2b2b2b" />
+            <span class="color-preview" id="colorPreview"></span>
+          </div>
+        </div>
+
+        <!-- Alignment -->
+        <div class="prop-group">
+          <label>Alignment</label>
+          <div class="align-buttons">
+            <button class="align-btn" data-align="left" title="Left">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M2 4h12M2 8h12M2 12h8"/>
+              </svg>
+            </button>
+            <button class="align-btn" data-align="center" title="Center">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M3 4h10M2 8h12M4 12h8"/>
+              </svg>
+            </button>
+            <button class="align-btn" data-align="right" title="Right">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M2 4h12M2 8h12M6 12h8"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Line Height -->
+        <div class="prop-group">
+          <label>Line Height</label>
+          <div class="line-height-control">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="line-height-icon">
+              <path d="M2 6h12M2 10h12"/>
+            </svg>
+            <input id="lineHeight" type="number" step="0.1" min="0.5" max="3" value="1.2" />
+          </div>
+        </div>
+
+        <!-- Animation Controls -->
+        <div class="prop-group">
+          <label>Start Animation</label>
+          <select id="startAnimation">
+            <option value="none">None</option>
+            <option value="fadeIn">Fade In</option>
+            <option value="slideUp">Slide Up</option>
+            <option value="slideDown">Slide Down</option>
+          </select>
+        </div>
+
+        <div class="prop-group">
+          <label>End Animation</label>
+          <select id="endAnimation">
+            <option value="none">None</option>
+            <option value="fadeOut">Fade Out</option>
+            <option value="slideUp">Slide Up</option>
+            <option value="slideDown">Slide Down</option>
+          </select>
+        </div>
+
+        <!-- Layer Operations -->
+        <div class="prop-group actions-group">
+          <button id="duplicateLayer" class="btn-secondary">Duplicate</button>
+          <button id="deleteLayer" class="btn-danger">Delete</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    Swipe left/right — double click to edit text — drag to move text
+  </footer>
+
+  <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
